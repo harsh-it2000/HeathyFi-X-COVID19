@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Covid19</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="cssContact/styleContact.css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col xl2 l2 m6 s5">
+          <div class="logo">
+            <a href="#!"><img src="img/logo.png"></a>
+          </div>
+        </div>
+        <div class="col xl10 l10 m6 s7">
+          <div class="mainmenu">
+            <ul>
+              <li><a class="active" href="index.html">Overview</a></li>
+              <li><a class="" href="index.html"">Contagion</a></li>
+              <li><a class="" href="index.html"">Symptoms</a></li>
+              <li><a class="" href="indexTracker.html" target="_blank">Statistics</a></li>
+              <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+            </ul>
+          </div>
+          <div class="mobilemenu">
+            <span onclick="openNav()">&#9776;</span>
+            <div id="mySidenav" class="sidemenu">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <ul>
+                <li><a class="" href="#overview">Overview</a></li>
+                <li><a class="" href="#contagion">Contagion</a></li>
+                <li><a class="" href="#symptoms">Symptoms</a></li>
+                <li><a class="" href="indexTracker.html" target="_blank">Statistics</a></li>
+                <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--contact-form-container------------------->
+	<section id="contact">
+    <!--socail----------->
+    <div class="social">
+    <!--icons--------->
+    <a href="#"><i class="fab fa-facebook-f"></i></a>
+    <a href="#"><i class="fab fa-twitter"></i></a>
+    <a href="#"><i class="fab fa-instagram"></i></a>
+    <a href="#"><i class="fab fa-dribbble"></i></a>
+    <a href="#"><i class="fab fa-behance"></i></a>
+      
+    </div>
+    <!--contact-box------------->
+    <div class="contact-box">
+    <!--heading---------->
+    <div class="c-heading">
+    <h1>Get In Touch</h1>
+    <p>Call Or Email Us Regarding Question Or Issues</p>
+    </div>
+    <!--inputs------------------>
+    <div class="c-inputs">
+    <form action="/" method="POST">
+      <input type="text" name="dname" value="" placeholder="Full Name"/>	
+      <input type="email" name="demail" value="" placeholder="Example@gmail.com"/>
+      <textarea name="message" name="dmsg" value="" placeholder="Text"></textarea>
+    <!--sumbit-btn----------->
+    <button>SEND</button>
+    </form>
+    </div>
+      
+    </div>
+    <!--map------------------->
+    <div class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3570.992377559206!2d80.3169894506838!3d26.488190283230335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399c38605271b581%3A0x34f0c48171ae4fdb!2sEmerald%20Garden!5e0!3m2!1sen!2sin!4v1604336929162!5m2!1sen!2sin" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+    </section>
+
+    
+  </body>
+  </html>
+  </header>

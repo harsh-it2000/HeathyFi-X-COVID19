@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Covid19 Statistics</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+  <link rel="stylesheet" href="cssTracker/styleTracker.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" charset="utf-8"></script>
+</head>
+
+<body>
+
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col xl2 l2 m6 s5">
+          <div class="logo">
+            <a href="#!"><img src="img/logo.png"></a>
+          </div>
+        </div>
+        <div class="col xl10 l10 m6 s7">
+          <div class="mainmenu">
+            <ul>
+              <li><a class="" href="index.html">Overview</a></li>
+              <li><a class="" href="index.html">Contagion</a></li>
+              <li><a class="" href="index.html">Symptoms</a></li>
+              <li><a class="active" href="#">Statistics</a></li>
+              <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+            </ul>
+          </div>
+          <div class="mobilemenu">
+            <span onclick="openNav()">&#9776;</span>
+            <div id="mySidenav" class="sidemenu">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <ul>
+                <li><a class="" href="#overview">Overview</a></li>
+                <li><a class="" href="#contagion">Contagion</a></li>
+                <li><a class="" href="#symptoms">Symptoms</a></li>
+                <li><a class="" href="#prevention">Prevention</a></li>
+                <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header><br><br>
+
+  <div class="main">
+
+    <div id="header">
+      <h3>
+        <center>COVID-19 Tracker</center>
+      </h3>
+    </div>
+
+    <br>
+
+    <div id="content">
+      <div id="search">
+        <select class="browser-default" name="country" id="country">
+          <option value="#" disabled selected>--Select Country--</option>
+        </select>
+      </div><br><br><br>
+
+      <center>
+        <div id="confirmed" class="rowforblocks">
+          <h4>&emsp;Confirmed</h4>
+          <span id="confirmedCount"></span>
+        </div>
+
+        <div id="recovered" class="rowforblocks">
+          <h4>&emsp;Recovered</h4>
+          <span id="recoveredCount"></span>
+        </div>
+
+        <div id="death" class="rowforblocks">
+          <h4>&emsp;Deaths</h4>
+          <span id="deathCount"></span>
+        </div>
+      </center>
+
+      <br><br><br><br>
+
+      <div class="chart-container">
+        <canvas id="country-piechart"></canvas>
+        <canvas id="country-barchart"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+
+</body>
+
+</html>
+
+<script>
+  var jsonData = [];
+  $(document).ready(function() {
+    $.ajax({
+      type: 'GET',
+      url: 'https://corona-api.com/countries',
+      datatype: 'jsonp',
+      success: function(result) {
+        jsonData = result;
+        _.forEach(result.data, function(elem) {
+          $('#country').append('<option value=' + elem.code + '>' + elem.name + '</option>')
+        });
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
+  });
+
+  $('#country').change(function() {
+
+    $("#country-barchart").remove();
+    $("#country-piechart").remove();
+    $(".chart-container").append('<canvas id="country-barchart"></canvas>');
+    $(".chart-container").append('<canvas id="country-piechart"></canvas>');
+    var ctx1 = $('#country-barchart');
+    var ctx2 = $('#country-piechart');
+
+    var selectedCountryCode = $("#country").val();
+    var selectedCountryName = $("#country :selected").text();
+    var selectedCountryData = _.filter(jsonData.data, {
+      'code': selectedCountryCode
+    });
+    var confirmedData = selectedCountryData[0].latest_data.confirmed;
+    var recoveredData = selectedCountryData[0].latest_data.recovered;
+    var deathData = selectedCountryData[0].latest_data.deaths;
+    console.log(selectedCountryData);
+
+    $("#confirmedCount").text(confirmedData);
+    $("#recoveredCount").text(recoveredData);
+    $("#deathCount").text(deathData);
+
+    generateBarChart(ctx1, ["Confirmed", "Recovered", "Death"], [confirmedData, recoveredData, deathData], "COVID-19 Cases In " + selectedCountryName);
+    generatePieChart(ctx2, ["Confirmed", "Recovered", "Death"], [confirmedData, recoveredData, deathData], "COVID-19 Cases In " + selectedCountryName);
+
+    $('html,body').animate({scrollTop: $("#chart-container").offset().top()}, 'slow');
+  });
+
+  function generateBarChart(canvas, label, data, title) {
+    var myChart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels: label,
+        datasets: [{
+          label: '# of cases',
+          data: data,
+          backgroundColor: poolColors(10)
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: true
+        },
+        title: {
+          display: true,
+          text: title
+        },
+        scales: {
+          xAxes: [{
+            maxBarThickness: 100,
+          }]
+        },
+        legend: {
+          display:false
+        }
+      }
+    });
+  }
+
+  function generatePieChart(canvas, label, data, title) {
+    var myChart = new Chart(canvas, {
+      type: 'pie',
+      data: {
+        labels: label,
+        datasets: [{
+          label: '# of cases',
+          data: data,
+          backgroundColor: poolColors(10)
+        }]
+      },
+      options: {
+        legend: {
+          display:false
+        },
+        title: {
+          display: true,
+          text: title
+        }
+      }
+    });
+  }
+
+  function poolColors(a){
+    var pool = [];
+    for(i=0 ; i<a ; i++){
+      pool.push(dynamicColors());
+    }
+    return pool;
+  }
+
+  function dynamicColors() {
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    return "rgb(" + r + "," + g + "," + b + ")";
+  }
+</script>
