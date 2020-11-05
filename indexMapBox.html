@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Covid19</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="cssMapBox/styleMapBox.css">
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css">
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" type="text/css">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col xl2 l2 m6 s5">
+          <div class="logo">
+            <a href="#!"><img src="img/logo.png"></a>
+          </div>
+        </div>
+        <div class="col xl10 l10 m6 s7">
+          <div class="mainmenu">
+            <ul>
+              <li><a class="active" href="index.html">Overview</a></li>
+              <li><a class="" href="index.html"">Contagion</a></li>
+              <li><a class="" href="index.html"">Symptoms</a></li>
+              <li><a class="" href="indexTracker.html" target="_blank">Statistics</a></li>
+              <li><a class="" href="indexMapBox.html" target="_blank">Maps</a></li>
+              <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+            </ul>
+          </div>
+          <div class="mobilemenu">
+            <span onclick="openNav()">&#9776;</span>
+            <div id="mySidenav" class="sidemenu">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <ul>
+                <li><a class="" href="#overview">Overview</a></li>
+                <li><a class="" href="#contagion">Contagion</a></li>
+                <li><a class="" href="#symptoms">Symptoms</a></li>
+                <li><a class="" href="indexTracker.html" target="_blank">Statistics</a></li>
+                <li><a class="" href="indexMapBox.html" target="_blank">Maps</a></li>
+                <li><a class="" href="indexContact.html" class="butmenu">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-map">
+      <br>
+      <h2><center>World Map</center></h2><br>
+      <hr>
+      <!-- Corona World Details Render here -->
+      <div id="corona-world-details">
+        <!-- Render the table here -->
+      </div>
+      <div id='map' style='width: 1000px; height: 500px;'></div>
+      <!-- <select name="select-country">
+      </select> -->
+      <br><br>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <script
+      src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
+    <script src="mapApp.js"></script>
+  </body>
+  
+  </html>
+
+
+
+    

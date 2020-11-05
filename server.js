@@ -31,6 +31,12 @@ http.createServer(function(req, res){
         res.writeHead(200, {"Content-Type": "text/html"});
         fs.createReadStream("./indexContact.html","UTF-8").pipe(res);
     }
+    if(req.url === "/indexMapBox.html"){
+        fs.readFile("./indexMapBox.html", "UTF-8", function (err, html){
+            res.writeHead(200, {"Content-Type": "text/html"});
+            res.end(html);
+        });
+    }
     if(req.method === "POST"){
         var data = "";
         req.on("data", function(chunck){
@@ -56,6 +62,12 @@ http.createServer(function(req, res){
         var cssPath = path.join(__dirname, req.url);
         var fileStream = fs.createReadStream(cssPath, "UTF-8");
         res.writeHead(200, {"Content-Type": "text/css"});
+        fileStream.pipe(res);
+    }
+    if(req.url.match("\.js$")){
+        var jsPath = path.join(__dirname, req.url);
+        var fileStream = fs.createReadStream(jsPath, "UTF-8");
+        res.writeHead(200, {"Content-Type": "text/js"});
         fileStream.pipe(res);
     }
     if(req.url.match("\.png$")){
